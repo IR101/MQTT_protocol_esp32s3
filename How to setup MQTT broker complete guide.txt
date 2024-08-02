@@ -1,0 +1,92 @@
+Here's a step-by-step guide for setting up and using Eclipse Mosquitto as a broker and MQTT Explorer as a client:
+
+Step 1: Download and Install Software
+1. Download Eclipse Mosquitto: from the official website: [Eclipse Mosquitto](https://mosquitto.org/download/).
+2. Install Eclipse Mosquitto: following the installation instructions for your operating system.
+3. Download MQTT Explorer: from the official website: [MQTT Explorer](http://mqtt-explorer.com/).
+4. Install MQTT Explorer: following the installation instructions for your operating system.
+
+Step 2: Configure and Run Mosquitto Broker
+1. Open Command Prompt (cmd).
+2. Start Mosquitto Broker by typing:
+  
+   mosquitto -v
+  
+
+Step 3: Configure Firewall (if necessary)
+1. Open Firewall settings on your computer.
+2. Create a new rule to allow traffic through port 1883.
+
+Step 4: Publish a Message
+1. Open Command Prompt (cmd).
+2. Publish a messagE using the following command:
+   
+   mosquitto_pub -h localhost -t topic/pub -m "YOUR MESSAGE" -r -i client -d
+  
+   -h localhost specifies the broker's address.
+   -t topic/pub specifies the topic.
+   -m "YOUR MESSAGE" specifies the message.
+   -r makes the message retained.
+   -i client sets the client ID.
+   -d enables debug mode.
+
+
+
+Step 5: Subscribe to a Topic
+1. Open Command Prompt (cmd).
+2. Subscribe to a topic** using the following command:
+
+   mosquitto_sub -h localhost -t topic/# -d
+
+   -h localhost specifies the broker's address.
+   -t topic/# specifies the topic (the `#` is a wildcard for all sub-topics).
+   -d enables debug mode.
+
+Step 6: Use MQTT Explorer as a Client
+1. Open MQTT Explorer.
+2. Configure connection settings:
+   - Host: 127.0.0.1
+   - Port: 1883
+3. Connect to the broker.
+
+Step 7: Send and Receive Messages
+1. Send a message from MQTT Explorer by publishing to `topic/pub`.
+2. Receive the message in the Command Prompt where you subscribed.
+
+For Using Network IPv4 Address
+Create a Configuration File:
+
+Open Notepad.
+Type the following:
+
+listener 1883
+allow_anonymous true
+
+Save the file with the extension .conf (e.g., test.conf) in the same location where Mosquitto is installed.
+Run Mosquitto with Configuration File:
+
+Open Command Prompt (cmd).
+Start Mosquitto with the configuration file by typing:
+
+mosquitto -v -c test.conf
+
+### Example Usage
+1.Publish a message using:
+   
+   	mosquitto_pub -h localhost -t topic/pub -m "Hello from cmd" -r -i client -d
+  In case of using ipv4 address:
+	mosquitto_pub -h ("YOUR IPV4 ADDRESS") -t topic/pub -m "Hello from cmd" -r -i client -d
+  
+2.Subscribe to a topic:
+
+   	mosquitto_sub -h localhost -t topic/# -d
+  In case of using ipv4 address:
+	mosquitto_pub -h ("YOUR IPV4 ADDRESS") -t topic/# -d
+
+3.Send a message from MQTT Explorer:
+   - Topic: topic/pub
+   - Message: Hi this is client
+
+4.bserve the message in Command Prompt where you subscribed.
+
+This guide should help others to set up and use Mosquitto and MQTT Explorer for local MQTT communication.
